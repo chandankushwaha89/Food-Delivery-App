@@ -1,7 +1,7 @@
 <div align="center">
     <h1 style="color: tomato;">MernEats.com</h1>
 
-This application is deployed on Vercel. Please check it out [here](https://mern-eats.vercel.app).
+This application is deployed on Vercel. Please check it out [here](https://food-delivery-app-knhp.vercel.app/).
 
 ![MernEats](frontend/src/assets/merneats-thumbnail.png)
 
