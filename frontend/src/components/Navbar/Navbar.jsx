@@ -6,11 +6,13 @@ import { StoreContext } from "../../context/StoreContext";
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
+  const [profileOpen, setProfileOpen] = useState(false);
   const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
   const navigate = useNavigate();
 
   // Sticky Nav Ref
   const navRef = useRef(null);
+  const profileRef = useRef(null);
 
   // Sticky Navbar Handler
   const handleStickyNavbar = () => {
@@ -27,6 +29,28 @@ const Navbar = ({ setShowLogin }) => {
   useEffect(() => {
     window.addEventListener("scroll", handleStickyNavbar);
     return () => window.removeEventListener("scroll", handleStickyNavbar);
+  }, []);
+
+  useEffect(() => {
+    const closeProfileMenu = (event) => {
+      if (!profileRef.current?.contains(event.target)) {
+        setProfileOpen(false);
+      }
+    };
+
+    const closeProfileMenuOnEscape = (event) => {
+      if (event.key === "Escape") {
+        setProfileOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", closeProfileMenu);
+    document.addEventListener("keydown", closeProfileMenuOnEscape);
+
+    return () => {
+      document.removeEventListener("mousedown", closeProfileMenu);
+      document.removeEventListener("keydown", closeProfileMenuOnEscape);
+    };
   }, []);
 
   // Logout
@@ -101,15 +125,41 @@ const Navbar = ({ setShowLogin }) => {
         {!token ? (
           <button onClick={() => setShowLogin(true)}>login</button>
         ) : (
-          <div className="navbar-profile">
+          <div
+            className="navbar-profile"
+            ref={profileRef}
+            onClick={() => setProfileOpen((isOpen) => !isOpen)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                setProfileOpen((isOpen) => !isOpen);
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-expanded={profileOpen}
+            aria-label="Open profile menu"
+          >
             <img src={assets.profile_icon} alt="" />
-            <ul className="nav-profile-dropdown">
-              <li onClick={() => navigate("/myorders")}>
+            <ul className={`nav-profile-dropdown${profileOpen ? " open" : ""}`}>
+              <li
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setProfileOpen(false);
+                  navigate("/myorders");
+                }}
+              >
                 <img src={assets.bag_icon} alt="" />
                 <p>Orders</p>
               </li>
               <hr />
-              <li onClick={logout}>
+              <li
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setProfileOpen(false);
+                  logout();
+                }}
+              >
                 <img src={assets.logout_icon} alt="" />
                 <p>Logout</p>
               </li>
