@@ -1,5 +1,5 @@
 <div align="center">
-    <h1 style="color: tomato;">MernEats.com</h1>
+    <h1 style="color: tomato;">FoodZone</h1>
 
 This application is deployed on Vercel. Please check it out [here](https://food-delivery-app-knhp.vercel.app/).
 
@@ -9,7 +9,7 @@ This application is deployed on Vercel. Please check it out [here](https://food-
 
 ## Introduction
 
-Mern-Eats.com is a full-stack web application that enables users to browse through a variety of dishes, place orders, track their order in real time and get food delivered to their doorstep efficiently. The application leverages the power of the MERN stack (MongoDB, Express.js, React.js, Node.js) to ensure a seamless user experience and robust performance.
+FoodZone is a full-stack web application that enables users to browse through a variety of dishes, place orders, track their order in real time and get food delivered to their doorstep efficiently. The application leverages the power of the MERN stack (MongoDB, Express.js, React.js, Node.js) to ensure a seamless user experience and robust performance.
 
 ## 🖥️ Tech Stack
 
